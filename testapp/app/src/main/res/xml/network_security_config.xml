@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true">
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="user" />
+        </trust-anchors>
+    </base-config>
+
+    <!-- 模拟商业 App 的 SSL Pinning 防护 -->
+    <domain-config>
+        <domain includeSubdomains="true">httpbin.org</domain>
+        <pin-set expiration="2027-01-01">
+            <!-- 这是 httpbin.org 真实的证书公钥哈希，只有证书完全匹配时才允许连接 -->
+            <pin digest="SHA-256">AxBkYmhbMwxqUkEu7yx5FyIaTOfXqiqMYahybvzFxfw=</pin>
+        </pin-set>
+    </domain-config>
+</network-security-config>
